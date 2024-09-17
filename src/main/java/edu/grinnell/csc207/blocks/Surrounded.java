@@ -53,8 +53,13 @@ public class Surrounded implements AsciiBlock {
    * @exception Exception
    *   If the row is invalid.
    */
-  public String row(int i) throws Exception {
-    throw new Exception("Not yet implemented"); // STUB
+  public String row(int i) throws Exception{
+    if (i==0||i==(this.height()-1)) {
+      return (this.boxChar).repeat(this.width());
+    }
+    else {
+      return this.boxChar + contents.row(i-1) + this.boxChar;
+    }
   } // row(int)
 
   /**
@@ -63,7 +68,7 @@ public class Surrounded implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return 0;   // STUB
+    return contents.height()+2;
   } // height()
 
   /**
@@ -72,6 +77,6 @@ public class Surrounded implements AsciiBlock {
    * @return the numbrer of columns
    */
   public int width() {
-    return 0;   // STUB
+    return contents.width()+2;
   } // width()
 } // class Surrounded

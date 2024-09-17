@@ -4,12 +4,10 @@ import java.io.PrintWriter;
 import edu.grinnell.csc207.blocks.AsciiBlock;
 import edu.grinnell.csc207.blocks.Boxed;
 import edu.grinnell.csc207.blocks.Empty;
-// import edu.grinnell.csc207.blocks.HorizontalCompositionCenter;
-// import edu.grinnell.csc207.blocks.HorizontalCompositionTop;
+import edu.grinnell.csc207.blocks.HorizontalCompositionTop;
 import edu.grinnell.csc207.blocks.Line;
 import edu.grinnell.csc207.blocks.Rectangle;
-// import edu.grinnell.csc207.blocks.Surrounded;
-// import edu.grinnell.csc207.blocks.VerticalCompositionLeft;
+import edu.grinnell.csc207.blocks.Surrounded;
 
 /**
  * Experiments with ASCII blocks.
@@ -21,8 +19,7 @@ public class Blocks {
   /**
    * Print a separator.
    *
-   * @param pen
-   *   What we use to print the separator.
+   * @param pen What we use to print the separator.
    */
   static void separator(PrintWriter pen) {
     pen.printf("\n-------------\n\n");
@@ -31,8 +28,7 @@ public class Blocks {
   /**
    * Run the experiments.
    *
-   * @param args
-   *   The command-line parameters (ignored).
+   * @param args The command-line parameters (ignored).
    */
   public static void main(String[] args) throws Exception {
     PrintWriter pen = new PrintWriter(System.out, true);
@@ -64,7 +60,7 @@ public class Blocks {
     pen.printf("b6 = new Boxed(b5)\n\n");
     AsciiBlock b6 = new Boxed(b5);
     AsciiBlock.print(pen, b6);
-    
+
     separator(pen);
     pen.printf("b7 = new Empty()\n\n");
     AsciiBlock b7 = new Empty();
@@ -80,6 +76,32 @@ public class Blocks {
     AsciiBlock b9 = new Boxed(b8);
     AsciiBlock.print(pen, b9);
 
+
+    AsciiBlock.print(pen, new Surrounded(new Line("A"), '*'));
+    AsciiBlock.print(pen, new Surrounded(new Surrounded(new Line("A"), ' '), '*'));
+    AsciiBlock.print(pen, new Surrounded(new Surrounded(new Line("A"), 'B'), 'C'));
+
+    AsciiBlock exes = new Rectangle('X', 3, 5);
+    AsciiBlock ohs = new Rectangle('O', 4, 2);
+
+    separator(pen);
+    AsciiBlock.print(pen, new HorizontalCompositionTop(exes, ohs));
+    separator(pen);
+    AsciiBlock.print(pen, new HorizontalCompositionTop(ohs, exes));
+    separator(pen);
+    AsciiBlock.print(pen, new HorizontalCompositionTop(exes, exes));
+    separator(pen);
+    AsciiBlock comp1 =
+    new HorizontalCompositionTop(exes, new HorizontalCompositionTop(ohs, exes));
+    AsciiBlock.print(pen, comp1);
+    separator(pen);
+    AsciiBlock comp2 =
+    new HorizontalCompositionTop(new HorizontalCompositionTop(exes, ohs), exes);
+    AsciiBlock.print(pen, comp2);
+    separator(pen);
+    AsciiBlock boxedcomp = new Boxed(new HorizontalCompositionTop(exes, ohs));
+    AsciiBlock.print(pen, boxedcomp);
+    separator(pen);
     pen.close();
   } // main(String[])
 } // class Blocks
